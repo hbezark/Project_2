@@ -2,7 +2,7 @@
 
 ## COMMENT HERE WITH:
 ## Your name: Hana Bezark
-## Anyone you worked with on this project: Emma Welth
+## Anyone you worked with on this project: Emma Welch
 
 ## Below we have provided import statements, comments to separate out the 
 #parts of the project, instructions/hints/examples, and at the end, TESTS.
@@ -27,6 +27,16 @@ from bs4 import BeautifulSoup
 ## find_urls("the internet is awesome #worldwideweb") should return [], empty list
 
 def find_urls(s):
+    #my_string = s 
+    #lst = []
+    #y = (re.findall("http://[^ ]*\....", my_string))
+    #for url in y:
+    #    lst.append(url)
+    #x = (re.findall("https://[^ ]*", my_string))
+    #for url in x:
+    #    lst.append(url)
+    #return lst
+
     return re.findall('http[^\s]?://.?[^\s]+\..?[^\s]+', s)
 
 
@@ -50,6 +60,7 @@ def grab_headlines():
 
 
 
+
 ## PART 3 (a) Define a function called get_umsi_data.  It should create a dictionary
 ## saved in a variable umsi_titles whose keys are UMSI people's names, and whose 
 ## associated values are those people's titles, e.g. "PhD student" or "Associate 
@@ -69,8 +80,13 @@ def get_umsi_data():
     for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"):
         for x in soup.find_all(class_ = "field-item even"):
             name = soup('h2')
-            print (name.text)
-    #Your code here
+            print (name.text) 
+    
+    
+    #for num in range(1,12):
+        #new_url = base_url + "&page=%"
+  
+
 
 
 
@@ -78,13 +94,12 @@ def get_umsi_data():
 ## INPUT: The dictionary from get_umsi_data().
 ## OUTPUT: Return number of PhD students in the data.  (Don't forget, I may change the input data)
 def num_students(data):
-    #PhD = 0
-    #for key in data.keys():
-    #   if data[key] == "PhD student":
-    #        PhD += 1
-    #return PhD
-    pass 
-
+    PhD = 0
+    for key in data.keys():
+        if data[key] == "PhD student":
+            PhD += 1
+    return PhD
+    
 
 
 ########### TESTS; DO NOT CHANGE ANY CODE BELOW THIS LINE! ###########

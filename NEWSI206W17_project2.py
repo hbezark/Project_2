@@ -1,8 +1,8 @@
 ## SI 206 W17 - Project 2
 
 ## COMMENT HERE WITH:
-## Your name: Hana Bezark
-## Anyone you worked with on this project: Emma Welth
+## Your name:
+## Anyone you worked with on this project:
 
 ## Below we have provided import statements, comments to separate out the 
 #parts of the project, instructions/hints/examples, and at the end, TESTS.
@@ -27,7 +27,8 @@ from bs4 import BeautifulSoup
 ## find_urls("the internet is awesome #worldwideweb") should return [], empty list
 
 def find_urls(s):
-    return re.findall('http[^\s]?://.?[^\s]+\..?[^\s]+', s)
+    pass
+    #Your code here
 
 
 
@@ -37,16 +38,8 @@ def find_urls(s):
 ## http://www.michigandaily.com/section/opinion
 
 def grab_headlines():
-    f = open('http://michigandaily.com/section/opinion', "r")
-    text_data_from_file = f.read()
-    f.close()
-    soup = BeautifulSoup(text_data_from_file, "html.parser")
-    lst = []
-    for h in soup.find_all(class_ = "panel-pane pane-mostread"):
-        a = h.find_all('a')
-        for x in a:
-            lst.append(x.text)
-    return (lst)
+    pass
+    #Your code here
 
 
 
@@ -62,28 +55,15 @@ def grab_headlines():
 ## requests.get(base_url, headers={'User-Agent': 'SI_CLASS'}) 
 
 def get_umsi_data():
-    umsi_titles = {}
-    base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All"
-    r = requests.get(base_url, headers={'User-Agent': 'SI_CLASS'})
-    soup = BeautifulSoup(r.text,"html.parser")
-    for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"):
-        for x in soup.find_all(class_ = "field-item even"):
-            name = soup('h2')
-            print (name.text)
+    pass
     #Your code here
-
-
 
 ## PART 3 (b) Define a function called num_students.  
 ## INPUT: The dictionary from get_umsi_data().
 ## OUTPUT: Return number of PhD students in the data.  (Don't forget, I may change the input data)
 def num_students(data):
-    #PhD = 0
-    #for key in data.keys():
-    #   if data[key] == "PhD student":
-    #        PhD += 1
-    #return PhD
-    pass 
+    pass
+    #Your code here
 
 
 
