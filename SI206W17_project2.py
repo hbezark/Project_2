@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 
 ## TODO finish
 def find_urls(s):
-    return re.findall('http[^\s]?://.?[^\s]+\..?[^\s]+', s)
+    return re.findall('http[^\s]?://.?[^\s]+\..?[^\s]+', s) #This regular expression first checks if the URL is http or https. Then it checks for ://. Next it checks that is has some character. Finally, it checks for a period (.) with at least two characters following
 
 
 
@@ -57,7 +57,6 @@ def grab_headlines():
 ## OUTPUT: Return umsi_titles
 ## Reminder: you'll need to use the special header for a request to the UMSI site, like so:
 #### requests.get(base_url, headers={'User-Agent': 'SI_CLASS'})
-
 
 
 def get_umsi_data():
