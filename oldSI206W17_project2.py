@@ -2,7 +2,7 @@
 
 ## COMMENT HERE WITH:
 ## Your name: Hana Bezark
-## Anyone you worked with on this project: Emma Welch
+## Anyone you worked with on this project: Emma Welth
 
 ## Below we have provided import statements, comments to separate out the 
 #parts of the project, instructions/hints/examples, and at the end, TESTS.
@@ -37,14 +37,16 @@ def find_urls(s):
 ## http://www.michigandaily.com/section/opinion
 
 def grab_headlines():
-    headlines = []
-    r = requests.get("http://www.michigandaily.com/section/opinion")
-    soup = BeautifulSoup(r.content, 'html.parser')
-    div = soup.find('div', class_ = 'panel-pane pane-mostread')
-    list_ = div.find_all('li')
-    for item in list_:
-        headlines.append(item.find('a').contents[0])
-    return (headlines)
+    f = open('http://michigandaily.com/section/opinion', "r")
+    text_data_from_file = f.read()
+    f.close()
+    soup = BeautifulSoup(text_data_from_file, "html.parser")
+    lst = []
+    for h in soup.find_all(class_ = "panel-pane pane-mostread"):
+        a = h.find_all('a')
+        for x in a:
+            lst.append(x.text)
+    return (lst)
 
 
 
@@ -61,44 +63,29 @@ def grab_headlines():
 
 def get_umsi_data():
     umsi_titles = {}
-    name_lst = []
-    
     base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All"
-    
-    for num in range(0,12):
-        new_url = base_url + '&page=%s' %str(num)
+    r = requests.get(base_url, headers={'User-Agent': 'SI_CLASS'})
+    soup = BeautifulSoup(r.text,"html.parser")
+    for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"):
+        for x in soup.find_all(class_ = "field-item even"):
+            name = soup('h2')
+            print (name.text)
+    #Your code here
 
-        r = requests.get(new_url, headers = {'User-Agent': 'SI_CLASS'})
-        soup = BeautifulSoup(r.text, 'html.parser')
-        for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"):
-            for x in h.find_all(class_ = "field-item even", property="d:title"):
-                name_lst.append((x.text))
-        title_lst = []
-        for a in soup.find_all(class_ = "field field-name-field-person-titles field-type-text field-label-hidden"):
-            for b in a.find_all(class_ = "field-item even"):
-                title_lst.append((b.text))
-    combo = zip(name_lst, title_lst)
-    umsi_titles = dict(combo)
-    return (umsi_titles)
-           
+
 
 ## PART 3 (b) Define a function called num_students.  
 ## INPUT: The dictionary from get_umsi_data().
 ## OUTPUT: Return number of PhD students in the data.  (Don't forget, I may change the input data)
 def num_students(data):
-    y = sum(x == "PhD student" for x in data.values())
-    print (y)
     #PhD = 0
-    #for person in data:
-        #if 'PhD' in data[person]:
-            #PhD += 1
-    #return PhD 
-
-    #PhD = 0
-    #for value in data.values():
-        #if data[value] == 'PhD student':
-            #PhD += 1
+    #for key in data.keys():
+    #   if data[key] == "PhD student":
+    #        PhD += 1
     #return PhD
+    pass 
+
+
 
 ########### TESTS; DO NOT CHANGE ANY CODE BELOW THIS LINE! ###########
 def test(got, expected, pts):
