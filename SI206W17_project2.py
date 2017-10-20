@@ -62,20 +62,20 @@ def get_umsi_data():
     title_lst = []
     
     
-    for num in range(13): 
+    for num in range(13): #Looping through page 0 to 13 and changing the base URL to reflect what page the data is coming from because we need data from each page of the UMSI directory
         base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All"
         new_url = base_url + '&page=%s' % str(num)
 
         r = requests.get(new_url, headers = {'User-Agent': 'SI_CLASS'})
         soup = BeautifulSoup(r.text, 'html.parser')
-        for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"): 
+        for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"): #Gets all of the names from the UMSI directory
             for x in h.find_all(class_ = "field-item even", property="dc:title"): 
-                name_lst.append((x.text)) 
-        for a in soup.find_all(class_ = "field field-name-field-person-titles field-type-text field-label-hidden"): 
+                name_lst.append((x.text)) #Adds the names to the empty list named name_lst
+        for a in soup.find_all(class_ = "field field-name-field-person-titles field-type-text field-label-hidden"): #Gets all of the titles from the UMSI directory
             for b in a.find_all(class_ = "field-item even"):
-                title_lst.append((b.text)) 
-    combo = zip(name_lst, title_lst) 
-    umsi_titles = dict(combo) 
+                title_lst.append((b.text)) #Adds the titles to the empty list named title_lst
+    combo = zip(name_lst, title_lst) #Returns a list of tuples. The tuples are created using the data from name_lst and title_lst. So the first tuple has the first persons name and title in it and so on
+    umsi_titles = dict(combo) #Turns the tuples saved into the variable combo into a dictionary titled umsi_titles
     return (umsi_titles)
 
 ## PART 3 (b) Define a function called num_students.
@@ -83,9 +83,9 @@ def get_umsi_data():
 ## OUTPUT: Return number of PhD students in the data.  (Don't forget, I may change the input data)
 def num_students(data):
     PhD = 0
-    for person in data: 
-        if 'PhD' in data[person]: 
-            PhD += 1 
+    for person in data: #Loops through every person in the dictionary
+        if 'PhD' in data[person]: #If PhD is in the person's title...
+            PhD += 1 #... the count of those with PhD in their title increases by 1. So, the inialized PhD counter in the first line under the function definition would increase by 1
     return PhD 
 
 
