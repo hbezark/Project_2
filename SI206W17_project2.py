@@ -34,15 +34,14 @@ def find_urls(s):
 ## INPUT: N/A. No input.
 ## The function should access the website nytimes.com
 ## Grab the headlines from the Most Read section of http://www.michigandaily.com/section/opinion
-
 def grab_headlines():
     headlines = []
     r = requests.get("http://www.michigandaily.com/section/opinion")
     soup = BeautifulSoup(r.content, 'html.parser')
-    div = soup.find('div', class_ = 'panel-pane pane-mostread')
+    div = soup.find('div', class_ = 'panel-pane pane-mostread') #Gets the div tag of where the most read articles are 
     list_ = div.find_all('li')
     for item in list_:
-        headlines.append(item.find('a').contents[0])
+        headlines.append(item.find('a').contents[0]) #Appending the actual title names to the originally empty list
     return (headlines)
 
 
@@ -57,28 +56,26 @@ def grab_headlines():
 ## OUTPUT: Return umsi_titles
 ## Reminder: you'll need to use the special header for a request to the UMSI site, like so:
 #### requests.get(base_url, headers={'User-Agent': 'SI_CLASS'})
-
-
 def get_umsi_data():
     umsi_titles = {}
     name_lst = []
     title_lst = []
     
     
-    for num in range(13):
+    for num in range(13): 
         base_url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=All"
         new_url = base_url + '&page=%s' % str(num)
 
         r = requests.get(new_url, headers = {'User-Agent': 'SI_CLASS'})
         soup = BeautifulSoup(r.text, 'html.parser')
-        for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"):
-            for x in h.find_all(class_ = "field-item even", property="dc:title"):
-                name_lst.append((x.text))
-        for a in soup.find_all(class_ = "field field-name-field-person-titles field-type-text field-label-hidden"):
+        for h in soup.find_all(class_ = "ds-1col node node-person node-teaser view-mode-teaser clearfix"): 
+            for x in h.find_all(class_ = "field-item even", property="dc:title"): 
+                name_lst.append((x.text)) 
+        for a in soup.find_all(class_ = "field field-name-field-person-titles field-type-text field-label-hidden"): 
             for b in a.find_all(class_ = "field-item even"):
-                title_lst.append((b.text))
-    combo = zip(name_lst, title_lst)
-    umsi_titles = dict(combo)
+                title_lst.append((b.text)) 
+    combo = zip(name_lst, title_lst) 
+    umsi_titles = dict(combo) 
     return (umsi_titles)
 
 ## PART 3 (b) Define a function called num_students.
@@ -86,9 +83,9 @@ def get_umsi_data():
 ## OUTPUT: Return number of PhD students in the data.  (Don't forget, I may change the input data)
 def num_students(data):
     PhD = 0
-    for person in data:
-        if 'PhD' in data[person]:
-            PhD += 1
+    for person in data: 
+        if 'PhD' in data[person]: 
+            PhD += 1 
     return PhD 
 
 
